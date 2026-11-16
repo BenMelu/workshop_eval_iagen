@@ -58,7 +58,7 @@ def llm_judge_section(verbose: bool = False) -> list[bool]:
     tone_score = GEval(
         name="ProfessionalTone",
         model=model,
-        criteria="La réponse doit garder un ton professionnel...",
+        criteria="La réponse doit garder un ton professionnel. Elle doit uniquement utilisée le vouvoiement.",
         evaluation_params=[SingleTurnParams.INPUT, SingleTurnParams.ACTUAL_OUTPUT],
         threshold=0.5,
     )
@@ -68,7 +68,7 @@ def llm_judge_section(verbose: bool = False) -> list[bool]:
         name="AnswerStructure",
         model=model,
         criteria=(
-            "La réponse doit contenir ..."
+            "La réponse doit contenir une phrase d'introduction ainsi qu'une phrase de conclusion."
         ),
         evaluation_params=[SingleTurnParams.ACTUAL_OUTPUT],
         threshold=0.5,
@@ -101,7 +101,7 @@ def grounding_faithfulness_section(verbose: bool = False) -> list[bool]:
 
     # TODO-03: ajuster le seuil de faithfulness selon votre tolerance au risque d'hallucination.
     # threshold = seuil de réussite : le cas passe si le score >= threshold.
-    faithfulness_score = FaithfulnessMetric(threshold=0.5, model=model, penalize_ambiguous_claims=True)
+    faithfulness_score = FaithfulnessMetric(threshold=0.70, model=model, penalize_ambiguous_claims=True)
 
     case = LLMTestCase(input=question, actual_output=answer, retrieval_context=retrieval_context)
     result = evaluate(test_cases=[case], metrics=[faithfulness_score], display_config=DisplayConfig(print_results=True))

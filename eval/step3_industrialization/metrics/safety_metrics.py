@@ -6,3 +6,11 @@ from deepeval.metrics import RoleViolationMetric
 
 
 # TODO: Définir la fonction `role_violation_metric(threshold: float, role: str) -> RoleViolationMetric`.
+
+def role_violation_metric(threshold: float, role: str) -> RoleViolationMetric:
+    model = build_deepeval_model()
+    return RoleViolationMetric(
+        model=model,
+        threshold=threshold,
+        role=role,
+    )

@@ -25,7 +25,8 @@ def load_judge_dataset() -> EvaluationDataset:
     """Charge le dataset judge depuis CSV avec test cases."""
     dataset = EvaluationDataset()
     # TODO: Charger les test cases depuis le CSV judge_cases.csv, DATASET_PATH est déjà défini.
-
+    dataset.add_test_cases_from_csv_file(DATASET_PATH,
+            "input","actual_output")
     return dataset
 
 
@@ -42,6 +43,7 @@ def test_llm_judge_correctness(test_case):
         evaluation_params=[SingleTurnParams.INPUT, SingleTurnParams.ACTUAL_OUTPUT],
         model=model,
         # TODO: Definir un threshold adapté au niveau d'exigence souhaité.
+        threshold=0.5
     )
     assert_test(test_case, [correctness_score])
 

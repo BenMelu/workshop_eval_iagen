@@ -46,14 +46,7 @@ def build_tone_metric(threshold: float = TONE_THRESHOLD) -> GEval:
     return GEval(
         name="ToneProfessional",
         criteria=(
-            "Évalue le ton de manière très exigeante, comme un manager qualité d'un "
-            "helpdesk IT premium. Retire des points pour CHACUN de ces éléments : "
-            "absence de formule d'accueil personnalisée, absence d'empathie explicite "
-            "face au problème de l'utilisateur, ton trop neutre ou robotique, jargon "
-            "non explicité, absence de formule de clôture proposant un suivi, "
-            "tournures impersonnelles ou directives sèches. Un score élevé doit être "
-            "réservé à une réponse chaleureuse, empathique ET parfaitement professionnelle. "
-            "Une réponse seulement correcte et polie ne doit pas dépasser la moyenne."
+            "Evalue le côté professionnel du ton de la réponse"
         ),
         evaluation_params=[SingleTurnParams.ACTUAL_OUTPUT],
         model=build_deepeval_model(),
